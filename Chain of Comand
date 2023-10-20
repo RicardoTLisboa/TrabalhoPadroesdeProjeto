@@ -1,0 +1,71 @@
+interface Aprovador{
+  void definirProximo(Aprovador proximo);
+  void aprovarPresente(Presente presente);
+}
+class Presente {
+  private double montante;
+
+  public Presente(double montante) {
+    this.montante = montante;
+  }
+  public double getMontante() {
+    return montante;
+  }
+}
+
+class Pai implements Aprovador{
+  private Aprovador proximo;
+
+  public void definirProximo(Aprovador proximo){
+    this.proximo = proximo;
+  }
+
+  public void aprovarPresente(Presente presente){
+   if (presente.getMontante() <= 100) {
+     System.out.println("Seu pai aceitou dar um presente de: R$" + presente.getMontante());
+   } else if (proximo != null) {
+     proximo.aprovarPresente(presente);
+   }
+  }
+}
+class Tio implements Aprovador{
+  private Aprovador proximo;
+
+  public void definirProximo(Aprovador proximo){
+    this.proximo = proximo;
+  }
+
+  public void aprovarPresente(Presente presente){
+   if (presente.getMontante() <= 150) {
+     System.out.println("Seu tio aceitou dar um presente de: R$" + presente.getMontante());
+   } else if (proximo != null) {
+     proximo.aprovarPresente(presente);
+   }
+  }
+}
+
+class Avo implements Aprovador {
+  public void definirProximo(Aprovador proximo) {
+  
+  }
+  public void aprovarPresente (Presente presente) {
+    System.out.println("Seu avo aceitou dar um presente de: R$" + presente.getMontante());
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Aprovador pai = new Pai();
+    Aprovador tio = new Tio();
+    Aprovador avo = new Avo();
+
+    pai.definirProximo(tio);
+    tio.definirProximo(avo);
+
+    Presente presente1 = new Presente(60);
+    Presente presente2 = new Presente(200);
+
+    pai.aprovarPresente(presente1);
+    pai.aprovarPresente(presente2);
+  }
+}

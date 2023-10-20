@@ -1,0 +1,42 @@
+public class Config {
+  private static Config instancia = null;
+
+  private String ling;
+  private String legen;
+
+  private Config() {
+    this.ling = "Portugues";
+    this.legen = "Desligadas";
+  }
+
+  public static Config getInstance() {
+    if (instancia == null) {
+      instancia = new Config();
+    }
+    return instancia;
+  }
+
+  public String getling() {
+    return ling;
+  }
+
+  public void setling(String ling) {
+    this.ling = ling;
+  }
+
+  public String getlegen() {
+    return legen;
+  }
+
+  public void set(String legen) {
+    this.legen = legen;
+  }
+}
+public class Main {
+  public static void main(String[] args) {
+    Config config = Config.getInstance();
+
+    System.out.println("Linguagem: " + config.getling());
+    System.out.println("Legendas: " + config.getlegen());
+  }
+}

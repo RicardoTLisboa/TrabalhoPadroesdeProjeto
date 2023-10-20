@@ -1,0 +1,81 @@
+interface Pizza {
+  double preco();
+  String ingredi();
+}
+class Pizzabasica implements Pizza{
+  public double preco() {
+    return 40.0;
+  }
+
+  public String ingredi(){
+    return "Muçarela";
+  }
+}
+
+abstract class Pizzadecorator implements Pizza {
+  protected Pizza Pizzadecorada;
+
+  public Pizzadecorator(Pizza Pizzadecorada) {
+    this.Pizzadecorada = Pizzadecorada;
+  }
+
+  public double preco(){
+    return Pizzadecorada.preco();
+  }
+
+  public String ingredi() {
+    return Pizzadecorada.ingredi();
+  }
+}
+
+class Calabresa extends Pizzadecorator{
+  public Calabresa(Pizza Pizzadecorada) {
+    super(Pizzadecorada);
+  }
+  public double preco() {
+    return super.preco() + 2.5;
+  }
+
+  public String ingredi() {
+    return super.ingredi() + ", Calabresa";
+  }
+}
+class Frangocat extends Pizzadecorator{
+  public Frangocat(Pizza Pizzadecorada) {
+    super(Pizzadecorada);
+  }
+  public double preco() {
+    return super.preco() + 2.5;
+  }
+
+  public String ingredi() {
+    return super.ingredi() + ", Frango com catupiri";
+  }
+}
+class Bacon extends Pizzadecorator{
+  public Bacon(Pizza Pizzadecorada) {
+    super(Pizzadecorada);
+  }
+  public double preco() {
+    return super.preco() + 2.0;
+  }
+
+  public String ingredi() {
+    return super.ingredi() + ", Bacon";
+  }
+}
+public class Main {
+  public static void main(String[] args) {
+    Pizza Pizzabasica = new Pizzabasica();
+    System.out.println("Ingredientes: " + Pizzabasica.ingredi());
+    System.out.println("Preço: R$ " + Pizzabasica.preco());
+
+    Pizza calabresaefrango = new Calabresa(new Frangocat (Pizzabasica));
+      System.out.println("Ingredientes: " + calabresaefrango.ingredi());
+      System.out.println("Preço : R$" + calabresaefrango.preco());
+
+    Pizza frangoebacon = new Frangocat (new Bacon (Pizzabasica));
+      System.out.println ("Ingredientes: " + frangoebacon.ingredi());
+      System.out.println("Preço : R$" + frangoebacon.preco());
+  }
+}
